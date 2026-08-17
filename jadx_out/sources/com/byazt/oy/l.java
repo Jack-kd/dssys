@@ -1,0 +1,9 @@
+package com.byazt.oy;
+
+/* loaded from: classes3.dex */
+public enum l {
+    BYTE_INVALID_RETRY_STATUS_NONE,
+    BYTE_INVALID_RETRY_STATUS_RESTART,
+    BYTE_INVALID_RETRY_STATUS_DOWNLOADING,
+    BYTE_INVALID_RETRY_STATUS_DOWNLOADED
+}

@@ -1,0 +1,32 @@
+package org.chromium.support_lib_boundary;
+
+import android.content.Context;
+import android.net.Uri;
+import android.webkit.ValueCallback;
+import java.util.List;
+import java.util.Set;
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked
+/* loaded from: classes5.dex */
+public interface StaticsBoundaryInterface {
+    int getRendererLibraryPrefetchMode();
+
+    Uri getSafeBrowsingPrivacyPolicyUrl();
+
+    String getVariationsHeader();
+
+    void initSafeBrowsing(Context context, ValueCallback<Boolean> valueCallback);
+
+    boolean isMultiProcessEnabled();
+
+    void setDefaultTrafficStatsTag(int i2);
+
+    void setDefaultTrafficStatsUid(int i2);
+
+    void setRendererLibraryPrefetchMode(int i2);
+
+    void setSafeBrowsingAllowlist(Set<String> set, ValueCallback<Boolean> valueCallback);
+
+    void setSafeBrowsingWhitelist(List<String> list, ValueCallback<Boolean> valueCallback);
+}

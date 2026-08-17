@@ -1,0 +1,8 @@
+package com.beizi.fusion;
+
+import android.os.IInterface;
+
+/* loaded from: classes2.dex */
+public interface xq extends IInterface {
+    String getOAID();
+}

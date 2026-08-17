@@ -1,0 +1,33 @@
+package androidx.core.widget;
+
+import android.view.View;
+import android.widget.PopupWindow;
+import androidx.annotation.ReplaceWith;
+
+/* loaded from: classes.dex */
+public final class PopupWindowCompat {
+    private PopupWindowCompat() {
+    }
+
+    public static boolean getOverlapAnchor(PopupWindow popupWindow) {
+        return popupWindow.getOverlapAnchor();
+    }
+
+    public static int getWindowLayoutType(PopupWindow popupWindow) {
+        return popupWindow.getWindowLayoutType();
+    }
+
+    public static void setOverlapAnchor(PopupWindow popupWindow, boolean z2) {
+        popupWindow.setOverlapAnchor(z2);
+    }
+
+    public static void setWindowLayoutType(PopupWindow popupWindow, int i2) {
+        popupWindow.setWindowLayoutType(i2);
+    }
+
+    @ReplaceWith(expression = "popup.showAsDropDown(anchor, xoff, yoff, gravity)")
+    @Deprecated
+    public static void showAsDropDown(PopupWindow popupWindow, View view, int i2, int i3, int i4) {
+        popupWindow.showAsDropDown(view, i2, i3, i4);
+    }
+}

@@ -1,0 +1,270 @@
+.class public Lcom/meishu/sdk/platform/jd/JDSdkPlatform;
+.super Lcom/meishu/sdk/core/c;
+.source "SourceFile"
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Lcom/meishu/sdk/core/c;-><init>()V
+
+    .line 2
+    .line 3
+    .line 4
+    return-void
+.end method
+
+
+# virtual methods
+.method public bannerLoader(Lcom/meishu/sdk/core/ad/banner/BannerAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 1
+
+    .line 1
+    :try_start_0
+    const-string v0, "com.jd.ad.sdk.banner.JADBanner"
+
+    .line 2
+    .line 3
+    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    .line 4
+    .line 5
+    .line 6
+    new-instance v0, Lcom/meishu/sdk/platform/jd/banner/JDBannerAdWrapper;
+
+    .line 7
+    .line 8
+    invoke-direct {v0, p1, p2, p3}, Lcom/meishu/sdk/platform/jd/banner/JDBannerAdWrapper;-><init>(Lcom/meishu/sdk/core/ad/banner/BannerAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)V
+    :try_end_0
+    .catch Ljava/lang/ClassNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 9
+    .line 10
+    .line 11
+    return-object v0
+
+    .line 12
+    :catch_0
+    move-exception p1
+
+    .line 13
+    invoke-virtual {p1}, Ljava/lang/Throwable;->printStackTrace()V
+
+    .line 14
+    .line 15
+    .line 16
+    const/4 p1, 0x0
+
+    .line 17
+    return-object p1
+.end method
+
+.method public createConfig()Lcom/meishu/sdk/core/d;
+    .locals 1
+
+    .line 1
+    new-instance v0, Lcom/meishu/sdk/platform/jd/JDAdConfig;
+
+    .line 2
+    .line 3
+    invoke-direct {v0}, Lcom/meishu/sdk/platform/jd/JDAdConfig;-><init>()V
+
+    .line 4
+    .line 5
+    .line 6
+    return-object v0
+.end method
+
+.method public fullScreenVideoLoader(Lcom/meishu/sdk/core/ad/fullscreenvideo/FullScreenVideoAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 0
+
+    const/4 p1, 0x0
+
+    return-object p1
+.end method
+
+.method public interstitialLoader(Lcom/meishu/sdk/core/ad/interstitial/InterstitialAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 1
+
+    .line 1
+    :try_start_0
+    const-string v0, "com.jd.ad.sdk.interstitial.JADInterstitial"
+
+    .line 2
+    .line 3
+    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    .line 4
+    .line 5
+    .line 6
+    new-instance v0, Lcom/meishu/sdk/platform/jd/interstitial/JDInterstitialAdWrapper;
+
+    .line 7
+    .line 8
+    invoke-direct {v0, p1, p2, p3}, Lcom/meishu/sdk/platform/jd/interstitial/JDInterstitialAdWrapper;-><init>(Lcom/meishu/sdk/core/ad/interstitial/InterstitialAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 9
+    .line 10
+    .line 11
+    return-object v0
+
+    .line 12
+    :catch_0
+    move-exception p1
+
+    .line 13
+    invoke-virtual {p1}, Ljava/lang/Throwable;->printStackTrace()V
+
+    .line 14
+    .line 15
+    .line 16
+    const/4 p1, 0x0
+
+    .line 17
+    return-object p1
+.end method
+
+.method public pasterLoader(Lcom/meishu/sdk/core/ad/paster/PasterAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 0
+
+    const/4 p1, 0x0
+
+    return-object p1
+.end method
+
+.method public recyclerLoader(Lcom/meishu/sdk/core/ad/recycler/RecyclerMixAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 1
+
+    .line 1
+    :try_start_0
+    const-string v0, "com.jd.ad.sdk.feed.JADFeed"
+
+    .line 2
+    .line 3
+    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    .line 4
+    .line 5
+    .line 6
+    new-instance v0, Lcom/meishu/sdk/platform/jd/recycler/JDFeedAdWrapper;
+
+    .line 7
+    .line 8
+    invoke-direct {v0, p1, p2, p3}, Lcom/meishu/sdk/platform/jd/recycler/JDFeedAdWrapper;-><init>(Lcom/meishu/sdk/core/ad/recycler/RecyclerMixAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 9
+    .line 10
+    .line 11
+    return-object v0
+
+    .line 12
+    :catch_0
+    move-exception p1
+
+    .line 13
+    invoke-virtual {p1}, Ljava/lang/Throwable;->printStackTrace()V
+
+    .line 14
+    .line 15
+    .line 16
+    const/4 p1, 0x0
+
+    .line 17
+    return-object p1
+.end method
+
+.method public rewardLoader(Lcom/meishu/sdk/core/ad/reward/RewardVideoLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 0
+
+    const/4 p1, 0x0
+
+    return-object p1
+.end method
+
+.method public splashLoader(Lcom/meishu/sdk/core/ad/splash/SplashAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)Lcom/meishu/sdk/core/loader/d;
+    .locals 1
+
+    .line 1
+    :try_start_0
+    const-string v0, "com.jd.ad.sdk.splash.JADSplash"
+
+    .line 2
+    .line 3
+    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    .line 4
+    .line 5
+    .line 6
+    new-instance v0, Lcom/meishu/sdk/platform/jd/splash/JDSplashAdWrapper;
+
+    .line 7
+    .line 8
+    invoke-direct {v0, p1, p2, p3}, Lcom/meishu/sdk/platform/jd/splash/JDSplashAdWrapper;-><init>(Lcom/meishu/sdk/core/ad/splash/SplashAdLoader;Lcom/meishu/sdk/core/domain/SdkAdInfo;Lcom/meishu/sdk/core/domain/MeishuAdInfo;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 9
+    .line 10
+    .line 11
+    return-object v0
+
+    .line 12
+    :catch_0
+    move-exception p1
+
+    .line 13
+    invoke-virtual {p1}, Ljava/lang/Throwable;->printStackTrace()V
+
+    .line 14
+    .line 15
+    .line 16
+    const/4 p1, 0x0
+
+    .line 17
+    return-object p1
+.end method
+
+.method public support()[Lcom/meishu/sdk/core/ad/AdType;
+    .locals 6
+
+    .line 1
+    sget-object v0, Lcom/meishu/sdk/core/ad/AdType;->FEED:Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 2
+    .line 3
+    sget-object v1, Lcom/meishu/sdk/core/ad/AdType;->FEED_PRE_RENDER:Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 4
+    .line 5
+    sget-object v2, Lcom/meishu/sdk/core/ad/AdType;->FEED_MIX:Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 6
+    .line 7
+    sget-object v3, Lcom/meishu/sdk/core/ad/AdType;->BANNER:Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 8
+    .line 9
+    sget-object v4, Lcom/meishu/sdk/core/ad/AdType;->SPLASH:Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 10
+    .line 11
+    sget-object v5, Lcom/meishu/sdk/core/ad/AdType;->INTERSTITIAL:Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 12
+    .line 13
+    filled-new-array/range {v0 .. v5}, [Lcom/meishu/sdk/core/ad/AdType;
+
+    .line 14
+    .line 15
+    .line 16
+    move-result-object v0
+
+    .line 17
+    return-object v0
+.end method

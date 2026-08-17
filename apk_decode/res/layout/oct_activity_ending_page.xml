@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#80000000" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@android:color/black" android:layout_width="match_parent" android:layout_height="60.0dp">
+        <TextView android:textSize="12.0sp" android:textColor="#ffffff" android:id="@id/ad_feedback" android:background="@drawable/oct_feedback_background_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:layout_marginTop="10.0dp" android:text="@string/octopus_feedback" android:layout_marginStart="15.0dp" />
+        <ImageView android:id="@id/ad_close" android:background="@drawable/oct_close_transe" android:layout_width="23.0dp" android:layout_height="23.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="15.0dp" android:src="@drawable/oct_close" android:layout_alignParentRight="true" android:contentDescription="@null" android:layout_marginEnd="15.0dp" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/rl_center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <RelativeLayout android:id="@id/rl_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerHorizontal="true">
+            <ImageView android:id="@id/iv_app_icon" android:layout_width="70.0dp" android:layout_height="70.0dp" android:scaleType="fitCenter" android:layout_centerHorizontal="true" />
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="#ffffff" android:id="@id/tv_ad_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="40.0dp" android:layout_below="@id/iv_app_icon" android:layout_centerHorizontal="true" android:fontFamily="sans-serif-medium" />
+            <TextView android:textSize="16.0sp" android:textColor="#ffffff" android:id="@id/tv_ad_description" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_below="@id/tv_ad_title" android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+        <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ffffffff" android:gravity="center" android:id="@id/tv_button" android:background="@drawable/oct_dialog_bg_button" android:layout_width="230.0dp" android:layout_height="45.0dp" android:layout_marginTop="100.0dp" android:text="立即打开" android:shadowColor="#ffee7049" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="3.0" android:layout_below="@id/rl_content" android:layout_centerHorizontal="true" />
+        <ImageView android:id="@id/iv_click" android:background="@drawable/oct_click" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginLeft="178.0dp" android:layout_marginTop="105.0dp" android:layout_below="@id/rl_content" android:layout_marginStart="178.0dp" />
+        <ImageView android:background="@drawable/oct_point" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginLeft="190.0dp" android:layout_marginTop="120.0dp" android:layout_below="@id/rl_content" android:layout_marginStart="190.0dp" />
+    </RelativeLayout>
+</RelativeLayout>

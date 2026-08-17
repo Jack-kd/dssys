@@ -1,0 +1,97 @@
+package com.anythink.interstitial.unitgroup.api;
+
+import android.app.Activity;
+import android.content.Context;
+import android.view.ViewGroup;
+import com.anythink.core.api.ATCommonImpressionListener;
+import com.anythink.core.api.ATNetworkConfirmInfo;
+import com.anythink.core.api.bridge.ATBaseAdAdapter;
+import com.anythink.core.common.d.b;
+
+/* loaded from: classes2.dex */
+public abstract class CustomInterstitialAdapter extends ATBaseAdAdapter {
+    private static final String TAG = "CustomInterstitialAdapter";
+    protected CustomInterstitialEventListener mImpressListener;
+
+    public void clearImpressionListener() {
+        this.mImpressListener = null;
+    }
+
+    public void destory() {
+        try {
+            if (isSupportAdCarousel()) {
+                b.c().b(this);
+            }
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+    }
+
+    @Override // com.anythink.core.api.bridge.ATBaseAdAdapter, com.anythink.core.api.bridge.IATBaseAdAdapter
+    public final void internalFormatShow(Activity activity, ViewGroup viewGroup, final ATCommonImpressionListener aTCommonImpressionListener) {
+        this.mImpressListener = new CustomInterstitialEventListener() { // from class: com.anythink.interstitial.unitgroup.api.CustomInterstitialAdapter.1
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onDeeplinkCallback(boolean z2) {
+                aTCommonImpressionListener.onDeeplinkCallback(z2);
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onDownloadConfirm(Context context, ATNetworkConfirmInfo aTNetworkConfirmInfo) {
+                aTCommonImpressionListener.onDownloadConfirm(context, aTNetworkConfirmInfo);
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdClicked() {
+                aTCommonImpressionListener.onAdClick();
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdClose() {
+                aTCommonImpressionListener.onAdDismiss();
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdReward() {
+                aTCommonImpressionListener.onAdReward();
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdShow() {
+                aTCommonImpressionListener.onAdImpression();
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdVideoEnd() {
+                aTCommonImpressionListener.onAdVideoPlayEnd();
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdVideoError(String str, String str2) {
+                aTCommonImpressionListener.onAdShowFail(str, str2);
+            }
+
+            @Override // com.anythink.interstitial.unitgroup.api.CustomInterstitialEventListener
+            public final void onInterstitialAdVideoStart() {
+                aTCommonImpressionListener.onAdVideoPlayStart();
+            }
+        };
+        try {
+            if (isSupportAdCarousel()) {
+                b.c().a(this);
+            }
+            show(activity);
+        } catch (Throwable th) {
+            th.printStackTrace();
+            CustomInterstitialEventListener customInterstitialEventListener = this.mImpressListener;
+            if (customInterstitialEventListener != null) {
+                customInterstitialEventListener.onInterstitialAdVideoError("", "exception, show failed: " + th.getMessage());
+            }
+        }
+    }
+
+    public boolean isSupportAdCarousel() {
+        return false;
+    }
+
+    public abstract void show(Activity activity);
+}

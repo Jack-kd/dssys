@@ -1,0 +1,106 @@
+.class public Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/ShakeModel;
+.super Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ASNPJsonResponseModel;
+.source "SourceFile"
+
+
+# instance fields
+.field private angle:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .annotation runtime Lcom/beizi/fusion/ng;
+        key = "angle"
+    .end annotation
+.end field
+
+.field private axial:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .annotation runtime Lcom/beizi/fusion/ng;
+        key = "axial"
+    .end annotation
+.end field
+
+.field private count:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .annotation runtime Lcom/beizi/fusion/ng;
+        key = "count"
+    .end annotation
+.end field
+
+.field private endAmplitude:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .annotation runtime Lcom/beizi/fusion/ng;
+        key = "endAmplitude"
+    .end annotation
+.end field
+
+.field private startAmplitude:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .annotation runtime Lcom/beizi/fusion/ng;
+        key = "startAmplitude"
+    .end annotation
+.end field
+
+
+# direct methods
+.method public constructor <init>(Lorg/json/JSONObject;)V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0, p1}, Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ASNPJsonResponseModel;-><init>(Lorg/json/JSONObject;)V
+
+    .line 2
+    .line 3
+    .line 4
+    return-void
+.end method
+
+
+# virtual methods
+.method public getAxial()Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/ShakeModel;->axial:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
+
+.method public getCount()Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/ShakeModel;->count:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
+
+.method public getEndAmplitude()Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/ShakeModel;->endAmplitude:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
+
+.method public getRegulatoryAngle()Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/ShakeModel;->angle:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
+
+.method public getStartAmplitude()Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/ShakeModel;->startAmplitude:Lcom/beizi/fusion/asnp/adn/ad/model/impl/resp/ad3/ad/nativ/render/interaction/form/par/StatusParamModel;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
