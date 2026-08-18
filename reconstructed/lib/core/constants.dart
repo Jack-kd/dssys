@@ -11,7 +11,8 @@
 /// 从 libapp.so 偏移 0x44d6a8 函数提取
 /// 每个字节通过查表映射到真实字符
 /// ============================================================
-const Map<int, String> STRING_LOOKUP_TABLE = {
+/// 运行时构建为查找表 (存在部分重复键, 后者覆盖前者)
+final Map<int, String> STRING_LOOKUP_TABLE = {
   // 从已知对照对推导 (部分)
   // pp+0x1e600 "74db580e" -> "id"
   0x74: 'i', 0xdb: 'd',

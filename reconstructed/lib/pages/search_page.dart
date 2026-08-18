@@ -115,7 +115,7 @@ class _SearchPageState extends State<SearchPage> {
                     child: Image.network(video.image!, width: 60, height: 80,
                         fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) =>
-                            const Icon(Icons.movie, size: 40))),
+                            const Icon(Icons.movie, size: 40)))
                 : const Icon(Icons.movie, size: 40),
             title: Text(video.name),
             subtitle: Text(video.type ?? ''),

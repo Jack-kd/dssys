@@ -14,7 +14,7 @@ import 'constants.dart';
 class StringDeobfuscator {
   /// 完整的 256 字节查找表
   /// 从 libapp.so 的 Dart VM 对象池 (x26+0x2b0) 提取
-  static const List<String> _lookupTable = _buildLookupTable();
+  static final List<String> _lookupTable = _buildLookupTable();
 
   /// 构建完整的 256 项查找表
   static List<String> _buildLookupTable() {
