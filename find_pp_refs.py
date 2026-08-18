@@ -36,7 +36,7 @@ print(f"target pp+0x{target:x} = page 0x{page:x}, ldr imm 0x{ldr_imm:x} ({off_in
 hits = []
 for i in range(0, len(code) - 4, 4):
     w = struct.unpack_from("<I", code, i)[0]
-    if (w & 0xFF800000) != 0x91400000:
+    if (w & 0xFF800000) != 0x91000000:  # ADD immediate (bit22 shift is outside mask)
         continue
     imm12 = (w >> 10) & 0xFFF
     if imm12 != page:
@@ -50,7 +50,7 @@ for i in range(0, len(code) - 4, 4):
             if imm2 == ldr_imm:
                 hits.append((text_addr + i, rn, rd, text_addr + j))
             break
-        if (w2 & 0xFF800000) == 0x91400000:
+        if (w2 & 0xFF800000) == 0x91000000:
             break
 
 print(f"hits: {len(hits)}")
