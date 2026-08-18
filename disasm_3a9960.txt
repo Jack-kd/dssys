@@ -1,0 +1,200 @@
+  0x003a9960: stp      x29, x30, [x15, #-0x10]!
+  0x003a9964: mov      x29, x15
+  0x003a9968: sub      x15, x15, #0x58
+  0x003a996c: mov      x0, x1
+  0x003a9970: stur     x1, [x29, #-8]
+  0x003a9974: ldr      x16, [x26, #0x48]
+  0x003a9978: cmp      x15, x16
+  0x003a997c: b.ls     #0x3a9d6c
+  0x003a9980: add      x1, x27, #0x17, lsl #12
+  0x003a9984: ldr      x1, [x1, #0xd48]
+  0x003a9988: mov      x2, x22
+  0x003a998c: bl       #0x7dd600
+  0x003a9990: ldr      x1, [x27, #0x8b8]
+  0x003a9994: mov      x2, #0
+  0x003a9998: stur     x0, [x29, #-0x10]
+  0x003a999c: bl       #0x2273c0
+  0x003a99a0: mov      x4, x0
+  0x003a99a4: ldur     x0, [x29, #-8]
+  0x003a99a8: stur     x4, [x29, #-0x30]
+  0x003a99ac: ldur     w1, [x0, #7]
+  0x003a99b0: sbfx     x5, x1, #1, #0x1f
+  0x003a99b4: stur     x5, [x29, #-0x28]
+  0x003a99b8: mov      x6, #0
+  0x003a99bc: stur     x6, [x29, #-0x20]
+  0x003a99c0: ldr      x16, [x26, #0x48]
+  0x003a99c4: cmp      x15, x16
+  0x003a99c8: b.ls     #0x3a9d74
+  0x003a99cc: cmp      x6, x5
+  0x003a99d0: b.ge     #0x3a9b28
+  0x003a99d4: add      x7, x6, #2
+  0x003a99d8: stur     x7, [x29, #-0x18]
+  0x003a99dc: lsl      x2, x7, #1
+  0x003a99e0: mov      x1, x6
+  0x003a99e4: mov      x3, x5
+  0x003a99e8: ldr      x4, [x27, #0x1f0]
+  0x003a99ec: bl       #0x22dd4c
+  0x003a99f0: mov      x2, x0
+  0x003a99f4: ldur     x0, [x29, #-0x20]
+  0x003a99f8: cmp      x0, x2
+  0x003a99fc: b.ne     #0x3a9a08
+  0x003a9a00: ldr      x1, [x27, #0x1d0]
+  0x003a9a04: b        #0x3a9a7c
+  0x003a9a08: cbnz     x0, #0x3a9a20
+  0x003a9a0c: ldur     x3, [x29, #-0x28]
+  0x003a9a10: cmp      x2, x3
+  0x003a9a14: b.ne     #0x3a9a24
+  0x003a9a18: ldur     x1, [x29, #-8]
+  0x003a9a1c: b        #0x3a9a7c
+  0x003a9a20: ldur     x3, [x29, #-0x28]
+  0x003a9a24: add      x1, x0, #1
+  0x003a9a28: cmp      x1, x2
+  0x003a9a2c: b.ne     #0x3a9a50
+  0x003a9a30: ldur     x4, [x29, #-8]
+  0x003a9a34: add      x16, x4, x0
+  0x003a9a38: ldrb     w1, [x16, #0xf]
+  0x003a9a3c: lsl      x0, x1, #1
+  0x003a9a40: ldr      x1, [x26, #0x2b0]
+  0x003a9a44: sbfx     x16, x0, #1, #0x1f
+  0x003a9a48: ldr      x1, [x1, x16, lsl #3]
+  0x003a9a4c: b        #0x3a9a7c
+  0x003a9a50: ldur     x4, [x29, #-8]
+  0x003a9a54: lsl      x5, x0, #1
+  0x003a9a58: sbfiz    x0, x2, #1, #0x1f
+  0x003a9a5c: cmp      x2, x0, asr #1
+  0x003a9a60: b.eq     #0x3a9a6c
+  0x003a9a64: bl       #0x7de5a8
+  0x003a9a68: stur     x2, [x0, #7]
+  0x003a9a6c: stp      x5, x4, [x15, #8]
+  0x003a9a70: str      x0, [x15]
+  0x003a9a74: bl       #0x7dad80
+  0x003a9a78: mov      x1, x0
+  0x003a9a7c: ldur     w0, [x1, #7]
+  0x003a9a80: cbz      w0, #0x3a9d2c
+  0x003a9a84: ldur     x0, [x29, #-0x30]
+  0x003a9a88: mov      x2, #0x20
+  0x003a9a8c: mov      x3, x22
+  0x003a9a90: bl       #0x22cd98
+  0x003a9a94: mov      x2, x0
+  0x003a9a98: ldur     x0, [x29, #-0x30]
+  0x003a9a9c: stur     x2, [x29, #-0x38]
+  0x003a9aa0: ldur     w1, [x0, #0xb]
+  0x003a9aa4: ldur     w3, [x0, #0xf]
+  0x003a9aa8: add      x3, x3, x28, lsl #32
+  0x003a9aac: ldur     w4, [x3, #0xb]
+  0x003a9ab0: sbfx     x3, x1, #1, #0x1f
+  0x003a9ab4: stur     x3, [x29, #-0x20]
+  0x003a9ab8: sbfx     x1, x4, #1, #0x1f
+  0x003a9abc: cmp      x3, x1
+  0x003a9ac0: b.ne     #0x3a9acc
+  0x003a9ac4: mov      x1, x0
+  0x003a9ac8: bl       #0x2271b8
+  0x003a9acc: ldur     x2, [x29, #-0x30]
+  0x003a9ad0: ldur     x3, [x29, #-0x20]
+  0x003a9ad4: add      x0, x3, #1
+  0x003a9ad8: lsl      x1, x0, #1
+  0x003a9adc: stur     w1, [x2, #0xb]
+  0x003a9ae0: ldur     w1, [x2, #0xf]
+  0x003a9ae4: add      x1, x1, x28, lsl #32
+  0x003a9ae8: ldur     x0, [x29, #-0x38]
+  0x003a9aec: add      x25, x1, x3, lsl #2
+  0x003a9af0: add      x25, x25, #0xf
+  0x003a9af4: str      w0, [x25]
+  0x003a9af8: tbz      w0, #0, #0x3a9b14
+  0x003a9afc: ldurb    w16, [x1, #-1]
+  0x003a9b00: ldurb    w17, [x0, #-1]
+  0x003a9b04: and      x16, x17, x16, lsr #2
+  0x003a9b08: tst      x16, x28, lsr #32
+  0x003a9b0c: b.eq     #0x3a9b14
+  0x003a9b10: bl       #0x7dc544
+  0x003a9b14: ldur     x6, [x29, #-0x18]
+  0x003a9b18: ldur     x0, [x29, #-8]
+  0x003a9b1c: mov      x4, x2
+  0x003a9b20: ldur     x5, [x29, #-0x28]
+  0x003a9b24: b        #0x3a99bc
+  0x003a9b28: mov      x2, x4
+  0x003a9b2c: ldur     w0, [x2, #0xb]
+  0x003a9b30: sbfx     x3, x0, #1, #0x1f
+  0x003a9b34: cmp      x3, #2
+  0x003a9b38: b.lt     #0x3a9d50
+  0x003a9b3c: mov      x0, x3
+  0x003a9b40: mov      x1, #0
+  0x003a9b44: cmp      x1, x0
+  0x003a9b48: b.hs     #0x3a9d7c
+  0x003a9b4c: ldur     w4, [x2, #0xf]
+  0x003a9b50: add      x4, x4, x28, lsl #32
+  0x003a9b54: ldur     w5, [x4, #0xf]
+  0x003a9b58: add      x5, x5, x28, lsl #32
+  0x003a9b5c: mov      x0, x3
+  0x003a9b60: stur     x5, [x29, #-0x38]
+  0x003a9b64: mov      x1, #1
+  0x003a9b68: cmp      x1, x0
+  0x003a9b6c: b.hs     #0x3a9d80
+  0x003a9b70: ldur     w0, [x4, #0x13]
+  0x003a9b74: add      x0, x0, x28, lsl #32
+  0x003a9b78: mov      x1, x2
+  0x003a9b7c: stur     x0, [x29, #-8]
+  0x003a9b80: mov      x2, #2
+  0x003a9b84: ldr      x4, [x27, #0x1c0]
+  0x003a9b88: bl       #0x2d949c
+  0x003a9b8c: mov      x3, x0
+  0x003a9b90: ldur     x0, [x29, #-0x38]
+  0x003a9b94: stur     x3, [x29, #-0x40]
+  0x003a9b98: sbfx     x4, x0, #1, #0x1f
+  0x003a9b9c: tbz      w0, #0, #0x3a9ba4
+  0x003a9ba0: ldur     x4, [x0, #7]
+  0x003a9ba4: stur     x4, [x29, #-0x20]
+  0x003a9ba8: and      w0, w4, #7
+  0x003a9bac: stur     x0, [x29, #-0x18]
+  0x003a9bb0: ldur     w5, [x3, #0xb]
+  0x003a9bb4: mov      x2, x5
+  0x003a9bb8: stur     x5, [x29, #-0x30]
+  0x003a9bbc: ldr      x1, [x27, #0x8b8]
+  0x003a9bc0: bl       #0x7de31c
+  0x003a9bc4: mov      x1, x0
+  0x003a9bc8: ldur     x0, [x29, #-0x30]
+  0x003a9bcc: sbfx     x2, x0, #1, #0x1f
+  0x003a9bd0: mov      x0, #0
+  0x003a9bd4: ldr      x16, [x26, #0x48]
+  0x003a9bd8: cmp      x15, x16
+  0x003a9bdc: b.ls     #0x3a9d84
+  0x003a9be0: cmp      x0, x2
+  0x003a9be4: b.ge     #0x3a9bfc
+  0x003a9be8: add      x3, x1, x0, lsl #2
+  0x003a9bec: stur     wzr, [x3, #0xf]
+  0x003a9bf0: add      x3, x0, #1
+  0x003a9bf4: mov      x0, x3
+  0x003a9bf8: b        #0x3a9bd4
+  0x003a9bfc: ldur     x0, [x29, #-0x40]
+  0x003a9c00: ldur     x3, [x29, #-8]
+  0x003a9c04: mov      x4, #8
+  0x003a9c08: sbfx     x5, x3, #1, #0x1f
+  0x003a9c0c: tbz      w3, #0, #0x3a9c14
+  0x003a9c10: ldur     x5, [x3, #7]
+  0x003a9c14: ldur     w3, [x0, #0xf]
+  0x003a9c18: add      x3, x3, x28, lsl #32
+  0x003a9c1c: ldur     x0, [x29, #-0x18]
+  0x003a9c20: ubfx     x0, x0, #0, #0x20
+  0x003a9c24: sub      x6, x4, x0
+  0x003a9c28: ldur     x0, [x29, #-0x20]
+  0x003a9c2c: mov      x4, #0
+  0x003a9c30: ldr      x16, [x26, #0x48]
+  0x003a9c34: cmp      x15, x16
+  0x003a9c38: b.ls     #0x3a9d8c
+  0x003a9c3c: cmp      x4, x2
+  0x003a9c40: b.ge     #0x3a9cd8
+  0x003a9c44: ubfx     x5, x5, #0, #0x20
+  0x003a9c48: mov      x16, #0x83
+  0x003a9c4c: mul      x7, x5, x16
+  0x003a9c50: add      w5, w7, w0
+  0x003a9c54: and      w7, w5, #0xff
+  0x003a9c58: add      x16, x3, x4, lsl #2
+  0x003a9c5c: ldur     w5, [x16, #0xf]
+  0x003a9c60: add      x5, x5, x28, lsl #32
+  0x003a9c64: sbfx     x8, x5, #1, #0x1f
+  0x003a9c68: tbz      w5, #0, #0x3a9c70
+  0x003a9c6c: ldur     x8, [x5, #7]
+  0x003a9c70: mov      x5, x7
+  0x003a9c74: ubfx     x5, x5, #0, #0x20
+  0x003a9c78: eor      x9, x8, x5
+  0x003a9c7c: ldur     x5, [x29, #-0x18]

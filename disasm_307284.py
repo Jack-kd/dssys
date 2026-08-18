@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Disassemble function at 0x4ae480 and nearby callers in libapp.so"""
+"""Disassemble around 0x307284 to see how _Ajg static field is used."""
 from elftools.elf.elffile import ELFFile
 from capstone import Cs, CS_ARCH_ARM64, CS_MODE_ARM
 
 path = "/workspace/extract/libapp.so"
 f = open(path, "rb")
 elf = ELFFile(f)
-
 segs = []
 for seg in elf.iter_segments():
     if seg["p_type"] == "PT_LOAD":
@@ -18,21 +17,12 @@ def va_to_off(va):
             return o0 + (va - v0)
     return None
 
-def read_va(va, size):
-    off = va_to_off(va)
-    if off is None:
-        return None
-    f.seek(off)
-    return f.read(size)
-
+target = 0x307000
+off = va_to_off(target)
+f.seek(off)
+code = f.read(0x700)
 md = Cs(CS_ARCH_ARM64, CS_MODE_ARM)
-
-target = 0x2618b0
-code = read_va(target, 512)
-if code:
-    print(f"=== 0x{target:x} (first 512 bytes) ===")
-    for insn in md.disasm(code, target):
-        print(f"0x{insn.address:x}: {insn.mnemonic}\t{insn.op_str}")
-else:
-    print("cannot map target VA")
+for insn in md.disasm(code, target):
+    mark = "  <<<<" if 0x307270 <= insn.address <= 0x3072a0 else ""
+    print(f"  0x{insn.address:08x}: {insn.mnemonic:8s} {insn.op_str}{mark}")
 f.close()
