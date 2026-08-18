@@ -14,6 +14,7 @@
 
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:pointycastle/api.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 import 'package:pointycastle/asymmetric/pkcs1.dart';
@@ -63,12 +64,17 @@ class ConfigManager {
   bool _initialized = false;
 
   /// 获取 API 基础 URL
+  ///
+  /// 保证始终返回一个语法的完整 URL (scheme + host), 避免 Dio 因
+  /// 缺少 host 抛出 "No host specified in URI ..." 崩溃。
+  /// - 域名解析成功 → https://<真实域名>
+  /// - 解析失败/未初始化 → 回退到占位符 https://xdd (仍为合法 URL)
   String get apiBaseUrl {
-    if (_apiDomain != null) {
+    if (_apiDomain != null && _apiDomain!.isNotEmpty) {
       return 'https://$_apiDomain';
     }
-    // 回退到占位符
-    return 'https://xdd';
+    // 占位符本身已是合法 URL (host=xdd), 保证请求不会因缺 host 而崩溃
+    return API_PLACEHOLDER;
   }
 
   /// 是否已初始化
@@ -103,17 +109,39 @@ class ConfigManager {
 
   /// 获取加密的 secret
   /// 对应 native 函数: parse_secret (pp+0x1eac8)
+  ///
+  /// 由 SECRET_PARSE_API_URL (http://mobile.appad.top/) 拉取响应,
+  /// 交给 _rsaDecrypt 解出真实 API 域名。
   Future<String> _fetchSecret() async {
-    // 实际实现中会通过 HTTP 请求获取
-    // 这里返回占位符，实际值由网络请求获取
-    return '';
+    try {
+      final res = await Dio(BaseOptions(
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+      )).get(
+        SECRET_PARSE_API_URL,
+        options: Options(
+          headers: {
+            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 10)',
+          },
+        ),
+      );
+      final body = res.data;
+      if (body == null) return '';
+      return body.toString();
+    } catch (_) {
+      // 拉取失败不阻断启动, 回退到占位域名
+      return '';
+    }
   }
 
   /// RSA 解密
   /// 对应 native 函数: 0x404e94 (RSA decrypt)
   String _rsaDecrypt(String encryptedBase64) {
     try {
+      if (encryptedBase64.isEmpty) return '';
       final keyBytes = base64.decode(encryptedBase64);
+      // 1024-bit RSA 单个分组长度固定为 128 字节
+      if (keyBytes.length != 128) return '';
 
       // 直接用恢复的私钥参数构造 RSAPrivateKey
       // pointycastle 3.x: RSAPrivateKey(modulus, exponent, p, q)
@@ -128,6 +156,7 @@ class ConfigManager {
         ..init(false, PrivateKeyParameter<RSAPrivateKey>(key));
 
       final decrypted = cipher.process(Uint8List.fromList(keyBytes));
+      // 去除 PKCS#1 填充: process 返回已去填充的原文
       return utf8.decode(decrypted);
     } catch (e) {
       return '';
@@ -136,14 +165,30 @@ class ConfigManager {
 
   /// 从解密后的 secret 中解析 API 域名
   String _parseDomain(String decrypted) {
-    // secret 格式: JSON 或特定格式的配置字符串
-    // 提取域名部分
+    if (decrypted.isEmpty) return '';
+    // 优先按 JSON 解析, 兼容 {"url": ...} / {"domain": ...}
     try {
-      final json = jsonDecode(decrypted) as Map<String, dynamic>;
-      return json['domain'] as String? ?? '';
+      final json = jsonDecode(decrypted);
+      if (json is Map<String, dynamic>) {
+        final url = json['url'];
+        if (url is String && url.isNotEmpty) return _extractHost(url);
+        final domain = json['domain'];
+        if (domain is String && domain.isNotEmpty) return _extractHost(domain);
+      }
+      return '';
     } catch (_) {
-      return decrypted.trim();
+      // 非 JSON, 直接当作 URL/域名处理
+      return _extractHost(decrypted);
     }
+  }
+
+  /// 从 URL/域名中提取纯 host (去掉 scheme 与路径)
+  String _extractHost(String input) {
+    var s = input.trim();
+    s = s.replaceFirst(RegExp(r'^https?://'), '');
+    final slash = s.indexOf('/');
+    if (slash > 0) s = s.substring(0, slash);
+    return s.trim();
   }
 
   /// 替换 URL 中的占位符

@@ -35,6 +35,8 @@ class ApiClient {
     _token = token;
 
     _dio = Dio(BaseOptions(
+      // 基础 URL: 使用解析后的 API 域名 (失败时回退到占位符, 保证 URL 合法)
+      baseUrl: _config.apiBaseUrl,
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       headers: {
