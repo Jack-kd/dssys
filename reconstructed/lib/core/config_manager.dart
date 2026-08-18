@@ -14,29 +14,45 @@
 
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:pointycastle/export.dart';
-import 'package:pointycastle/key_parsers/rsa_parser.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/asymmetric/api.dart';
+import 'package:pointycastle/asymmetric/pkcs1.dart';
+import 'package:pointycastle/asymmetric/rsa.dart';
 import 'constants.dart';
 
-/// RSA 私钥 (PEM 格式)
-/// 从 _Ajg 载荷恢复，模数:
-/// 00:ef:68:9a:c8:be:ca:ce:df:98:11:f7:c3:57:74:0d:fb:...
-const String RSA_PRIVATE_KEY_PEM = '''-----BEGIN PRIVATE KEY-----
-MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAO9omsi+ys7fmBH3
-w1d0DfvRAQlj0wLB1BI3Xsb9WSiu4lEc1Me+XubnzTxaQPCBbnuZURerRrO981n9
-GhsQkDcWmtW+X1mpCllOWt8bbnWwKPsHqemRFxncDWE/d0nA9yrZn6nLVy/J7DJ3
-cVJlIs9bNLArqEiR8KVrAf1PNSLXAgMBAAECgYBGPn3z2q8s5cP7uaOSHFYiBZ/1
-PlniXDa6JY7ked9YJX/35qqz9LJps6evRpf5OTDOiRyXAkUbZedqBu5K9KArSGVy
-xp/Vym4b0siEVeM8qq9Gbf74lHPH+L+X/NmXemydwZHR1lU9PiLJVMsh8o6aAazk
-B8ijZcsNMyYZUSH36QJBAPvHq511Uz45lx5BtVSZClcUnqPRFSmNnRdjATikDzFT
-ObemnGJU3eL/7VIPWtjEj9LvGP/WyX6gyo1zKc8BRtUCQQDza9oFnSmMHPkvrll/
-zMxcy3FeOTW0hctBhdIMbBmjJJyhlfTmBOvxwm8I91F05ydkSZ1yLuLhAjLxbjqs
-2fD7AkB/KOHQvW+UTqu22ULGfiCNyFkyrSc9/EqphBQa0ijmJX1R9nCm7Ou/eLgY
-KK8eKW/l/WGn3IeZT4XdGJu185QdAkBthqmivQRktuSoP5qlllCdsCxiaPtxLoI2
-CTBpxnoCngab7g0zMiO3s/Sh5CYSo69lwHnHVrFe7M5fM2nTPHzhAkEAiJETUvYF
-wCVKNGTYMzUg7v3QblqYXB+IhzcU37sHZOn6a46V5eJDadavIvuEmoxJHWTybi+1
-ZkN7LeUUg4ylCw==
------END PRIVATE KEY-----''';
+/// RSA 私钥参数
+/// 从 _Ajg 载荷 (pp+0x160d8) 恢复的 1024-bit RSA 密钥, 指数 65537
+///
+/// 参数均为十六进制字符串 (去除冒号):
+///   modulus          = n = p*q
+///   privateExponent  = d
+///   prime1           = p
+///   prime2           = q
+class RsaPrivateKeyParams {
+  static const String modulusHex =
+      '00ef689ac8becacedf9811f7c357740dfbd1010963d302c1d412375ec6fd59'
+      '28aee2511cd4c7be5ee6e7cd3c5a40f0816e7b995117ab46b3bdf359fd1a1b'
+      '109037169ad5be5f59a90a594e5adf1b6e75b028fb07a9e9911719dc0d613f'
+      '7749c0f72ad99fa9cb572fc9ec327771526522cf5b34b02ba84891f0a56b01'
+      'fd4f3522d7';
+
+  static const String privateExponentHex =
+      '463e7df3daaf2ce5c3fbb9a3921c5622059ff53e59e25c36ba258ee479df58'
+      '257ff7e6aab3f4b269b3a7af4697f93930ce891c9702451b65e76a06ee4af4'
+      'a02b486572c69fd5ca6e1bd2c88455e33caaaf466dfef89473c7f8bf97fcd9'
+      '977a6c9dc191d1d6553d3e22c954cb21f28e9a01ace407c8a365cb0d332619'
+      '5121f7e9';
+
+  static const String prime1Hex =
+      '00fbc7ab9d75533e39971e41b554990a57149ea3d115298d9d17630138a40f'
+      '315339b7a69c6254dde2ffed520f5ad8c48fd2ef18ffd6c97ea0ca8d7329cf'
+      '0146d5';
+
+  static const String prime2Hex =
+      '00f36bda059d298c1cf92fae597fcccc5ccb715e3935b485cb4185d20c6c19'
+      'a3249ca195f4e604ebf1c26f08f75174e72764499d722ee2e10232f16e3aac'
+      'd9f0fb';
+}
 
 class ConfigManager {
   static final ConfigManager _instance = ConfigManager._();
@@ -98,8 +114,15 @@ class ConfigManager {
   String _rsaDecrypt(String encryptedBase64) {
     try {
       final keyBytes = base64.decode(encryptedBase64);
-      final parser = RSAKeyParser();
-      final key = parser.parse(RSA_PRIVATE_KEY_PEM) as RSAPrivateKey;
+
+      // 直接用恢复的私钥参数构造 RSAPrivateKey
+      // pointycastle 3.x: RSAPrivateKey(modulus, exponent, p, q)
+      final key = RSAPrivateKey(
+        BigInt.parse(RsaPrivateKeyParams.modulusHex, radix: 16),
+        BigInt.parse(RsaPrivateKeyParams.privateExponentHex, radix: 16),
+        BigInt.parse(RsaPrivateKeyParams.prime1Hex, radix: 16),
+        BigInt.parse(RsaPrivateKeyParams.prime2Hex, radix: 16),
+      );
 
       final cipher = PKCS1Encoding(RSAEngine())
         ..init(false, PrivateKeyParameter<RSAPrivateKey>(key));
