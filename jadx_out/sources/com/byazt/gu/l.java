@@ -1,0 +1,25 @@
+package com.byazt.gu;
+
+import android.util.SparseArray;
+import com.umeng.commonsdk.statistics.UMErrorCode;
+import java.util.Map;
+import java.util.function.Function;
+
+@com.byazt.kj.hp(hp = {0, 1, UMErrorCode.E_UM_BE_EMPTY_URL_PATH, 34})
+/* loaded from: classes2.dex */
+public class l {
+    public final Function<SparseArray<Object>, Object> hp;
+
+    public l(Function<SparseArray<Object>, Object> function) {
+        this.hp = function == null ? com.byazt.xi.hp.f27665l : function;
+    }
+
+    public void hp(int i2, Map map) {
+        SparseArray<Object> sparseArray = new SparseArray<>(4);
+        sparseArray.put(0, Integer.valueOf(i2));
+        sparseArray.put(1, map);
+        sparseArray.put(-99999987, 100101);
+        sparseArray.put(-99999985, Void.class);
+        this.hp.apply(sparseArray);
+    }
+}

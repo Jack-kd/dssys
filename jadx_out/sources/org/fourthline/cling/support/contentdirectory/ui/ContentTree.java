@@ -1,0 +1,111 @@
+package org.fourthline.cling.support.contentdirectory.ui;
+
+import javax.swing.JTree;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import org.fourthline.cling.controlpoint.ActionCallback;
+import org.fourthline.cling.controlpoint.ControlPoint;
+import org.fourthline.cling.model.meta.Service;
+import org.fourthline.cling.support.contentdirectory.callback.Browse;
+import org.fourthline.cling.support.model.container.Container;
+
+/* loaded from: classes5.dex */
+public abstract class ContentTree extends JTree implements ContentBrowseActionCallbackCreator {
+    protected Container rootContainer;
+    protected DefaultMutableTreeNode rootNode;
+
+    /* renamed from: org.fourthline.cling.support.contentdirectory.ui.ContentTree$3, reason: invalid class name */
+    public static /* synthetic */ class AnonymousClass3 {
+        static final /* synthetic */ int[] $SwitchMap$org$fourthline$cling$support$contentdirectory$callback$Browse$Status;
+
+        static {
+            int[] iArr = new int[Browse.Status.values().length];
+            $SwitchMap$org$fourthline$cling$support$contentdirectory$callback$Browse$Status = iArr;
+            try {
+                iArr[Browse.Status.LOADING.ordinal()] = 1;
+            } catch (NoSuchFieldError unused) {
+            }
+            try {
+                $SwitchMap$org$fourthline$cling$support$contentdirectory$callback$Browse$Status[Browse.Status.NO_CONTENT.ordinal()] = 2;
+            } catch (NoSuchFieldError unused2) {
+            }
+        }
+    }
+
+    public ContentTree() {
+    }
+
+    public DefaultTreeCellRenderer createContainerTreeCellRenderer() {
+        return new ContentTreeCellRenderer();
+    }
+
+    public TreeWillExpandListener createContainerTreeExpandListener(ControlPoint controlPoint, Service service, DefaultTreeModel defaultTreeModel) {
+        return new ContentTreeExpandListener(controlPoint, service, defaultTreeModel, this);
+    }
+
+    @Override // org.fourthline.cling.support.contentdirectory.ui.ContentBrowseActionCallbackCreator
+    public ActionCallback createContentBrowseActionCallback(Service service, DefaultTreeModel defaultTreeModel, DefaultMutableTreeNode defaultMutableTreeNode) {
+        return new ContentBrowseActionCallback(service, defaultTreeModel, defaultMutableTreeNode) { // from class: org.fourthline.cling.support.contentdirectory.ui.ContentTree.2
+            @Override // org.fourthline.cling.support.contentdirectory.ui.ContentBrowseActionCallback
+            public void failureUI(String str) {
+                ContentTree.this.failure(str);
+            }
+
+            @Override // org.fourthline.cling.support.contentdirectory.ui.ContentBrowseActionCallback
+            public void updateStatusUI(Browse.Status status, DefaultMutableTreeNode defaultMutableTreeNode2, DefaultTreeModel defaultTreeModel2) {
+                ContentTree.this.updateStatus(status, defaultMutableTreeNode2, defaultTreeModel2);
+            }
+        };
+    }
+
+    public Container createRootContainer(Service service) {
+        Container container = new Container();
+        container.setId("0");
+        container.setTitle("Content Directory on " + service.getDevice().getDisplayString());
+        return container;
+    }
+
+    public abstract void failure(String str);
+
+    public Container getRootContainer() {
+        return this.rootContainer;
+    }
+
+    public DefaultMutableTreeNode getRootNode() {
+        return this.rootNode;
+    }
+
+    public DefaultMutableTreeNode getSelectedNode() {
+        return (DefaultMutableTreeNode) getLastSelectedPathComponent();
+    }
+
+    public void init(ControlPoint controlPoint, Service service) {
+        this.rootContainer = createRootContainer(service);
+        this.rootNode = new DefaultMutableTreeNode(this.rootContainer) { // from class: org.fourthline.cling.support.contentdirectory.ui.ContentTree.1
+            public boolean isLeaf() {
+                return false;
+            }
+        };
+        DefaultTreeModel defaultTreeModel = new DefaultTreeModel(this.rootNode);
+        setModel(defaultTreeModel);
+        getSelectionModel().setSelectionMode(1);
+        addTreeWillExpandListener(createContainerTreeExpandListener(controlPoint, service, defaultTreeModel));
+        setCellRenderer(createContainerTreeCellRenderer());
+        controlPoint.execute(createContentBrowseActionCallback(service, defaultTreeModel, getRootNode()));
+    }
+
+    public void updateStatus(Browse.Status status, DefaultMutableTreeNode defaultMutableTreeNode, DefaultTreeModel defaultTreeModel) {
+        int i2 = AnonymousClass3.$SwitchMap$org$fourthline$cling$support$contentdirectory$callback$Browse$Status[status.ordinal()];
+        if (i2 == 1 || i2 == 2) {
+            defaultMutableTreeNode.removeAllChildren();
+            defaultTreeModel.insertNodeInto(new DefaultMutableTreeNode(status.getDefaultMessage()), defaultMutableTreeNode, defaultMutableTreeNode.getChildCount() <= 0 ? 0 : defaultMutableTreeNode.getChildCount());
+            defaultTreeModel.nodeStructureChanged(defaultMutableTreeNode);
+        }
+    }
+
+    public ContentTree(ControlPoint controlPoint, Service service) {
+        init(controlPoint, service);
+    }
+}

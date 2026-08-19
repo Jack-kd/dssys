@@ -1,0 +1,17 @@
+package com.byazt.ctq;
+
+import com.byazt.ym.ATSKeep;
+import java.util.function.Function;
+
+@com.byazt.kj.hp(hp = {0, 1, 2136, 38})
+@ATSKeep
+/* loaded from: classes2.dex */
+public class j extends l implements jx, Function {
+    public j(jx jxVar) {
+        super(jxVar);
+    }
+
+    public j(Function function) {
+        super(function);
+    }
+}

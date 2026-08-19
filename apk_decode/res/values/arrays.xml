@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="complain_list">
+        <item>垃圾广告</item>
+        <item>感觉有被冒犯或被歧视</item>
+        <item>广告涉及欺诈造假</item>
+        <item>广告涉及色情暴力</item>
+        <item>广告涉及违建商品/服务</item>
+        <item>对广告内容不感兴趣</item>
+    </string-array>
+</resources>

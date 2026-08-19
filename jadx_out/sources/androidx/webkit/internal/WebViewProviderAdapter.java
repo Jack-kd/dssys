@@ -1,0 +1,167 @@
+package androidx.webkit.internal;
+
+import android.annotation.SuppressLint;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.CancellationSignal;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebViewClient;
+import androidx.annotation.UiThread;
+import androidx.webkit.NavigationListener;
+import androidx.webkit.PrerenderException;
+import androidx.webkit.PrerenderOperationCallback;
+import androidx.webkit.Profile;
+import androidx.webkit.SpeculativeLoadingParameters;
+import androidx.webkit.WebMessageCompat;
+import androidx.webkit.WebMessagePortCompat;
+import androidx.webkit.WebNavigationClient;
+import androidx.webkit.WebViewCompat;
+import androidx.webkit.WebViewRenderProcess;
+import androidx.webkit.WebViewRenderProcessClient;
+import java.lang.reflect.InvocationHandler;
+import java.util.concurrent.Executor;
+import org.chromium.support_lib_boundary.ProfileBoundaryInterface;
+import org.chromium.support_lib_boundary.WebViewProviderBoundaryInterface;
+import org.chromium.support_lib_boundary.util.BoundaryInterfaceReflectionUtil;
+
+/* loaded from: classes.dex */
+public class WebViewProviderAdapter {
+    final WebViewProviderBoundaryInterface mImpl;
+
+    public WebViewProviderAdapter(WebViewProviderBoundaryInterface webViewProviderBoundaryInterface) {
+        this.mImpl = webViewProviderBoundaryInterface;
+    }
+
+    public ScriptHandlerImpl addDocumentStartJavaScript(String str, String[] strArr) {
+        return ScriptHandlerImpl.toScriptHandler(this.mImpl.addDocumentStartJavaScript(str, strArr));
+    }
+
+    @WebNavigationClient.ExperimentalNavigationCallback
+    @UiThread
+    public void addNavigationListener(Executor executor, NavigationListener navigationListener) {
+        this.mImpl.addWebViewNavigationListener(executor, BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new NavigationListenerAdapter(navigationListener)));
+    }
+
+    public void addWebMessageListener(String str, String[] strArr, WebViewCompat.WebMessageListener webMessageListener) {
+        this.mImpl.addWebMessageListener(str, strArr, BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new WebMessageListenerAdapter(webMessageListener)));
+    }
+
+    public WebMessagePortCompat[] createWebMessageChannel() {
+        InvocationHandler[] invocationHandlerArrCreateWebMessageChannel = this.mImpl.createWebMessageChannel();
+        WebMessagePortCompat[] webMessagePortCompatArr = new WebMessagePortCompat[invocationHandlerArrCreateWebMessageChannel.length];
+        for (int i2 = 0; i2 < invocationHandlerArrCreateWebMessageChannel.length; i2++) {
+            webMessagePortCompatArr[i2] = new WebMessagePortImpl(invocationHandlerArrCreateWebMessageChannel[i2]);
+        }
+        return webMessagePortCompatArr;
+    }
+
+    public Profile getProfile() {
+        return new ProfileImpl((ProfileBoundaryInterface) BoundaryInterfaceReflectionUtil.castToSuppLibClass(ProfileBoundaryInterface.class, this.mImpl.getProfile()));
+    }
+
+    public WebChromeClient getWebChromeClient() {
+        return this.mImpl.getWebChromeClient();
+    }
+
+    @WebNavigationClient.ExperimentalNavigationCallback
+    @UiThread
+    public WebNavigationClient getWebNavigationClient() {
+        InvocationHandler webViewNavigationClient = this.mImpl.getWebViewNavigationClient();
+        if (webViewNavigationClient == null) {
+            return null;
+        }
+        return ((WebNavigationClientAdapter) BoundaryInterfaceReflectionUtil.getDelegateFromInvocationHandler(webViewNavigationClient)).getWebNavigationClient();
+    }
+
+    public WebViewClient getWebViewClient() {
+        return this.mImpl.getWebViewClient();
+    }
+
+    public WebViewRenderProcess getWebViewRenderProcess() {
+        return WebViewRenderProcessImpl.forInvocationHandler(this.mImpl.getWebViewRenderer());
+    }
+
+    public WebViewRenderProcessClient getWebViewRenderProcessClient() {
+        InvocationHandler webViewRendererClient = this.mImpl.getWebViewRendererClient();
+        if (webViewRendererClient == null) {
+            return null;
+        }
+        return ((WebViewRenderProcessClientAdapter) BoundaryInterfaceReflectionUtil.getDelegateFromInvocationHandler(webViewRendererClient)).getWebViewRenderProcessClient();
+    }
+
+    public void insertVisualStateCallback(long j2, WebViewCompat.VisualStateCallback visualStateCallback) {
+        this.mImpl.insertVisualStateCallback(j2, BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new VisualStateCallbackAdapter(visualStateCallback)));
+    }
+
+    public boolean isAudioMuted() {
+        return this.mImpl.isAudioMuted();
+    }
+
+    public void postWebMessage(WebMessageCompat webMessageCompat, Uri uri) {
+        this.mImpl.postMessageToMainFrame(BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new WebMessageAdapter(webMessageCompat)), uri);
+    }
+
+    public void prerenderUrlAsync(String str, CancellationSignal cancellationSignal, Executor executor, final PrerenderOperationCallback prerenderOperationCallback) {
+        this.mImpl.prerenderUrl(str, cancellationSignal, executor, new ValueCallback() { // from class: androidx.webkit.internal.M
+            @Override // android.webkit.ValueCallback
+            public final void onReceiveValue(Object obj) {
+                prerenderOperationCallback.onPrerenderActivated();
+            }
+        }, new ValueCallback() { // from class: androidx.webkit.internal.N
+            @Override // android.webkit.ValueCallback
+            public final void onReceiveValue(Object obj) {
+                prerenderOperationCallback.onError(new PrerenderException("Prerender operation failed", (Throwable) obj));
+            }
+        });
+    }
+
+    @WebNavigationClient.ExperimentalNavigationCallback
+    @UiThread
+    public void removeNavigationListener(NavigationListener navigationListener) {
+        this.mImpl.removeWebViewNavigationListener(BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new NavigationListenerAdapter(navigationListener)));
+    }
+
+    public void removeWebMessageListener(String str) {
+        this.mImpl.removeWebMessageListener(str);
+    }
+
+    @UiThread
+    public void saveState(Bundle bundle, int i2, boolean z2) {
+        this.mImpl.saveState(bundle, i2, z2);
+    }
+
+    public void setAudioMuted(boolean z2) {
+        this.mImpl.setAudioMuted(z2);
+    }
+
+    public void setProfileWithName(String str) {
+        this.mImpl.setProfile(str);
+    }
+
+    @WebNavigationClient.ExperimentalNavigationCallback
+    @UiThread
+    public void setWebNavigationClient(WebNavigationClient webNavigationClient) {
+        this.mImpl.setWebViewNavigationClient(BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new WebNavigationClientAdapter(webNavigationClient)));
+    }
+
+    @SuppressLint({"LambdaLast"})
+    public void setWebViewRenderProcessClient(Executor executor, WebViewRenderProcessClient webViewRenderProcessClient) {
+        this.mImpl.setWebViewRendererClient(webViewRenderProcessClient != null ? BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new WebViewRenderProcessClientAdapter(executor, webViewRenderProcessClient)) : null);
+    }
+
+    @Profile.ExperimentalUrlPrefetch
+    public void prerenderUrlAsync(String str, CancellationSignal cancellationSignal, Executor executor, SpeculativeLoadingParameters speculativeLoadingParameters, final PrerenderOperationCallback prerenderOperationCallback) {
+        this.mImpl.prerenderUrl(str, cancellationSignal, executor, BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(new SpeculativeLoadingParametersAdapter(speculativeLoadingParameters)), new ValueCallback() { // from class: androidx.webkit.internal.K
+            @Override // android.webkit.ValueCallback
+            public final void onReceiveValue(Object obj) {
+                prerenderOperationCallback.onPrerenderActivated();
+            }
+        }, new ValueCallback() { // from class: androidx.webkit.internal.L
+            @Override // android.webkit.ValueCallback
+            public final void onReceiveValue(Object obj) {
+                prerenderOperationCallback.onError(new PrerenderException("Prerender operation failed", (Throwable) obj));
+            }
+        });
+    }
+}

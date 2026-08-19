@@ -1,0 +1,88 @@
+# 大师兄影视 - Android APK 构建工作流
+#
+# 通过 GitHub Actions 自动编译 Flutter Android 应用。
+# 触发方式:
+#   - push 到 main / reverse-engineered-source 分支 (仅 reconstructed 相关变更)
+#   - pull request (仅 reconstructed 相关变更)
+#   - 手动触发 (workflow_dispatch)
+#
+# 产物:
+#   - build/app/outputs/flutter-apk/app-release.apk (release 签名使用 debug key)
+
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+      - reverse-engineered-source
+    paths:
+      - 'reconstructed/**'
+      - '.github/workflows/build-apk.yml'
+  pull_request:
+    paths:
+      - 'reconstructed/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch:
+    inputs:
+      build_mode:
+        description: '构建模式'
+        type: choice
+        default: 'release'
+        options:
+          - release
+          - debug
+
+jobs:
+  build-apk:
+    name: Build Flutter Android APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        # 源码位于仓库根目录下的 reconstructed/ 子目录
+        working-directory: reconstructed
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.22.3'
+          cache: true
+
+      - name: Verify Flutter environment
+        run: flutter doctor -v
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Static analysis (non-blocking)
+        run: flutter analyze || true
+
+      - name: Build APK
+        run: |
+          if [ "${{ inputs.build_mode }}" == "debug" ] || [ "${{ github.event_name }}" == "pull_request" ]; then
+            flutter build apk --debug
+          else
+            flutter build apk --release
+          fi
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ds-video-apk
+          path: |
+            reconstructed/build/app/outputs/flutter-apk/app-release.apk
+            reconstructed/build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: warn
+          retention-days: 14

@@ -1,0 +1,33 @@
+# This file tracks properties of this Flutter project.
+# Used by Flutter tool to assess capabilities and perform upgrades etc.
+#
+# This file should be version controlled and should not be manually edited.
+
+version:
+  revision: "761747bfc538b5af34aa0d3fac380f1e331d3cc8"
+  channel: "stable"
+
+project_type: app
+
+# Tracks metadata for the flutter migrate command
+migration:
+  platforms:
+    - platform: root
+      create_revision: 761747bfc538b5af34aa0d3fac380f1e331d3cc8
+      base_revision: 761747bfc538b5af34aa0d3fac380f1e331d3cc8
+    - platform: android
+      create_revision: 761747bfc538b5af34aa0d3fac380f1e331d3cc8
+      base_revision: 761747bfc538b5af34aa0d3fac380f1e331d3cc8
+
+  # User provided section
+
+  # List of Localizations (Material and Cupertino) your app supports
+  # https://docs.flutter.dev/development/accessibility-and-localization/internationalization
+  material:
+    - "en"
+    - "zh"
+
+  # If true, exposes all commands to flutter run
+  # localizations:
+  #   - "en"
+  #   - "es"

@@ -1,0 +1,5 @@
+package com.byazt.gy;
+
+/* loaded from: classes2.dex */
+public interface l {
+}

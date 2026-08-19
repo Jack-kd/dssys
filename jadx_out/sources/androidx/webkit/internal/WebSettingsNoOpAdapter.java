@@ -1,0 +1,174 @@
+package androidx.webkit.internal;
+
+import androidx.webkit.BackForwardCacheSettings;
+import androidx.webkit.UserAgentMetadata;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewMediaIntegrityApiStatusConfig;
+import java.util.Collections;
+
+/* loaded from: classes.dex */
+public class WebSettingsNoOpAdapter extends WebSettingsAdapter {
+    public WebSettingsNoOpAdapter() {
+        super(null);
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public int getAttributionRegistrationBehavior() {
+        return 1;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getBackForwardCacheEnabled() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    @WebSettingsCompat.ExperimentalBackForwardCacheSettings
+    public BackForwardCacheSettings getBackForwardCacheSettings() {
+        return new BackForwardCacheSettings.Builder().build();
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getCookieAccessForShouldInterceptRequestEnabled() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public int getDisabledActionModeMenuItems() {
+        return 0;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getEnterpriseAuthenticationAppLinkPolicyEnabled() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public int getForceDark() {
+        return 1;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public int getForceDarkStrategy() {
+        return 2;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getHasEnrolledInstrumentEnabled() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getOffscreenPreRaster() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getPaymentRequestEnabled() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean getSafeBrowsingEnabled() {
+        return true;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    @WebSettingsCompat.ExperimentalSpeculativeLoading
+    public int getSpeculativeLoadingStatus() {
+        return 0;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public UserAgentMetadata getUserAgentMetadata() {
+        return UserAgentMetadataInternal.getUserAgentMetadataFromMap(Collections.EMPTY_MAP);
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public int getWebAuthenticationSupport() {
+        return 0;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public WebViewMediaIntegrityApiStatusConfig getWebViewMediaIntegrityApiStatus() {
+        return new WebViewMediaIntegrityApiStatusConfig.Builder(2).build();
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public boolean isAlgorithmicDarkeningAllowed() {
+        return false;
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setAlgorithmicDarkeningAllowed(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setAttributionRegistrationBehavior(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setBackForwardCacheEnabled(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    @WebSettingsCompat.ExperimentalBackForwardCacheSettings
+    public void setBackForwardCacheSettings(BackForwardCacheSettings backForwardCacheSettings) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setCookieAccessForShouldInterceptRequestEnabled(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setDisabledActionModeMenuItems(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setEnterpriseAuthenticationAppLinkPolicyEnabled(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setForceDark(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setForceDarkStrategy(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setHasEnrolledInstrumentEnabled(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setHyperlinkContextMenuItems(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setOffscreenPreRaster(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setPaymentRequestEnabled(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setSafeBrowsingEnabled(boolean z2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setSpeculativeLoadingStatus(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setUserAgentMetadata(UserAgentMetadata userAgentMetadata) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setWebAuthenticationSupport(int i2) {
+    }
+
+    @Override // androidx.webkit.internal.WebSettingsAdapter
+    public void setWebViewMediaIntegrityApiStatus(WebViewMediaIntegrityApiStatusConfig webViewMediaIntegrityApiStatusConfig) {
+    }
+}

@@ -1,0 +1,44 @@
+.class public Lcom/byazt/jz/ud$hp;
+.super Ljava/lang/Object;
+
+
+# annotations
+.annotation runtime Lcom/byazt/kj/hp;
+    hp = {
+        0x0,
+        0x1,
+        0x28,
+        0x44a
+    }
+.end annotation
+
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/byazt/jz/ud;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x9
+    name = "hp"
+.end annotation
+
+
+# instance fields
+.field public hp:Ljava/lang/String;
+
+.field public j:Lorg/json/JSONObject;
+
+.field public jx:Ljava/lang/String;
+
+.field public l:Ljava/lang/String;
+
+.field public w:I
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method

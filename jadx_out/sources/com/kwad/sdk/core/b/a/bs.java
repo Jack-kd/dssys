@@ -1,0 +1,39 @@
+package com.kwad.sdk.core.b.a;
+
+import org.json.JSONObject;
+
+/* loaded from: classes4.dex */
+public final class bs implements com.kwad.sdk.core.d<com.kwad.components.ad.reward.model.b> {
+    @Override // com.kwad.sdk.core.d
+    public final /* bridge */ /* synthetic */ void a(com.kwad.sdk.core.b bVar, JSONObject jSONObject) {
+        a((com.kwad.components.ad.reward.model.b) bVar, jSONObject);
+    }
+
+    @Override // com.kwad.sdk.core.d
+    public final /* bridge */ /* synthetic */ JSONObject b(com.kwad.sdk.core.b bVar, JSONObject jSONObject) {
+        return b((com.kwad.components.ad.reward.model.b) bVar, jSONObject);
+    }
+
+    private static void a(com.kwad.components.ad.reward.model.b bVar, JSONObject jSONObject) {
+        if (jSONObject == null) {
+            return;
+        }
+        bVar.mC = jSONObject.optLong("lastShowCardTimeStamp");
+        bVar.mD = jSONObject.optInt("cardShowCount");
+    }
+
+    private static JSONObject b(com.kwad.components.ad.reward.model.b bVar, JSONObject jSONObject) {
+        if (jSONObject == null) {
+            jSONObject = new JSONObject();
+        }
+        long j2 = bVar.mC;
+        if (j2 != 0) {
+            com.kwad.sdk.utils.ac.putValue(jSONObject, "lastShowCardTimeStamp", j2);
+        }
+        int i2 = bVar.mD;
+        if (i2 != 0) {
+            com.kwad.sdk.utils.ac.putValue(jSONObject, "cardShowCount", i2);
+        }
+        return jSONObject;
+    }
+}
